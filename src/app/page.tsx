@@ -10,6 +10,31 @@ interface Quote {
 
 const quotes: Quote[] = [
   {
+    text: "Pedagogisch tact is de kunst om op het juiste moment het juiste te doen.",
+    author: "Max van Manen",
+    question: "Wat was het laatste moment waarop je voelde dat je pedagogisch tact toepaste? Welke situatie vraagt vandaag om meer tact van jou?"
+  },
+  {
+    text: "Respecteer het kind als persoon, maar vergeet niet dat het kind is.",
+    author: "Janusz Korczak",
+    question: "Waar behandel je kinderen misschien te veel als volwassenen? Waar vergeet je hun kindelijkheid te respecteren?"
+  },
+  {
+    text: "Een kind heeft meer behoefte aan waardering dan aan verbetering.",
+    author: "Rudolf Dreikurs",
+    question: "Hoeveel procent van je feedback is waardering versus verbetering? Wat zou er gebeuren als je dat omdraaide?"
+  },
+  {
+    text: "De leraar die probeert zonder inspiratie te onderwijzen, hamert op koud ijzer.",
+    author: "Horace Mann",
+    question: "Wanneer voelde je je voor het laatst echt geïnspireerd in je les? Wat heb je nodig om dat vuur te blijven aanwakkeren?"
+  },
+  {
+    text: "Kinderen zijn geen dingen die gevormd moeten worden, maar mensen die ontplooid moeten worden.",
+    author: "Jess Lair",
+    question: "Is er een leerling in jouw klas die je probeert te vormen in plaats van te ontplooien? Hoe zou je die benadering kunnen omdraaien?"
+  },
+  {
     text: "Opvoeding is niet het vullen van een emmer, maar het aansteken van een vlam.",
     author: "William Butler Yeats",
     question: "Wanneer vulde je voor het laatst een emmer in plaats van een vlam aan te steken? Hoe zou je morgen een vlam kunnen aansteken in plaats van een emmer te vullen?"
