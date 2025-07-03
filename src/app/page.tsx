@@ -10,6 +10,31 @@ interface Quote {
 
 const quotes: Quote[] = [
   {
+    text: "Opvoeding is niet het vullen van een emmer, maar het aansteken van een vlam.",
+    author: "William Butler Yeats",
+    question: "Wanneer vulde je voor het laatst een emmer in plaats van een vlam aan te steken? Hoe zou je morgen een vlam kunnen aansteken in plaats van een emmer te vullen?"
+  },
+  {
+    text: "Het kind is niet een vat dat gevuld moet worden, maar een fakkel die ontstoken moet worden.",
+    author: "Plutarchus",
+    question: "Welke fakkels in jouw klas zijn nog niet ontstoken? Wat heb je nodig om ze aan te steken?"
+  },
+  {
+    text: "Wat we leren met plezier, vergeten we nooit.",
+    author: "Alfred Mercier",
+    question: "Wat was het laatste wat je met plezier leerde? Hoe kun je dat gevoel van plezier overdragen op je leerlingen?"
+  },
+  {
+    text: "De beste leraren zijn degenen die je laten zien waar je moet kijken, maar je niet vertellen wat je moet zien.",
+    author: "Alexandra K. Trenfor",
+    question: "Hoe vaak vertel je wat leerlingen moeten zien in plaats van ze te laten ontdekken? Waar kun je morgen minder vertellen en meer laten zien?"
+  },
+  {
+    text: "Elk kind is een kunstenaar. Het probleem is hoe je een kunstenaar blijft als je opgroeit.",
+    author: "Pablo Picasso",
+    question: "Welke kunstenaar in jouw klas is aan het verdwijnen? Hoe kun je die creatieve vlam levend houden?"
+  },
+  {
     text: "Vertel me en ik vergeet het. Leer me en ik herinner het. Betrek me en ik leer het.",
     author: "Benjamin Franklin",
     question: "Hoe kun je je lessen meer interactief maken zodat leerlingen actief betrokken zijn bij het leerproces?"
@@ -35,11 +60,6 @@ const quotes: Quote[] = [
     question: "Hoe balanceer je het overdragen van kennis met het ontwikkelen van zelfstandig denkvermogen?"
   },
   {
-    text: "De beste leraren zijn degenen die je laten zien waar je moet kijken, maar je niet vertellen wat je moet zien.",
-    author: "Alexandra K. Trenfor",
-    question: "Op welke manieren begeleid je leerlingen naar eigen ontdekkingen zonder direct de antwoorden te geven?"
-  },
-  {
     text: "Onderwijs is niet voorbereiding op het leven; onderwijs is het leven zelf.",
     author: "John Dewey",
     question: "Hoe maak je je lessen relevant voor het dagelijkse leven van je leerlingen?"
@@ -53,11 +73,6 @@ const quotes: Quote[] = [
     text: "Het is de kunst van de leraar om de vreugde van creatieve expressie en kennis te wekken.",
     author: "Albert Einstein",
     question: "Hoe integreer je creativiteit en plezier in je vakgebied, ook bij meer theoretische onderwerpen?"
-  },
-  {
-    text: "Wat we leren met plezier, vergeten we nooit.",
-    author: "Alfred Mercier",
-    question: "Welke elementen van gamification of speelse leren kun je toevoegen aan je lessen?"
   },
   {
     text: "De invloed van een goede leraar kan nooit worden uitgewist.",
@@ -78,11 +93,6 @@ const quotes: Quote[] = [
     text: "Het mooie van leren is dat niemand het van je af kan nemen.",
     author: "B.B. King",
     question: "Hoe help je leerlingen om eigenaarschap te nemen over hun eigen leerproces en levenslang leren te omarmen?"
-  },
-  {
-    text: "Onderwijs is niet het vullen van een emmer, maar het aansteken van een vuur.",
-    author: "William Butler Yeats",
-    question: "Welke 'vonken' gebruik je om passie voor je vak aan te wakkeren bij leerlingen?"
   },
   {
     text: "De mediocre leraar vertelt. De goede leraar legt uit. De superieure leraar demonstreert. De grote leraar inspireert.",
@@ -155,11 +165,6 @@ const quotes: Quote[] = [
     question: "Wat inspireert jou als leraar en hoe breng je die inspiratie over op je leerlingen?"
   },
   {
-    text: "Onderwijs is de krachtigste kracht die je kunt gebruiken om de wereld te veranderen.",
-    author: "Nelson Mandela",
-    question: "Welke wereldproblemen bespreek je met je leerlingen en hoe motiveer je hen om verschil te maken?"
-  },
-  {
     text: "De kunst van het onderwijzen is de kunst van het begeleiden van ontdekkingen.",
     author: "Mark Van Doren",
     question: "Hoe creëer je leeromgevingen waarin leerlingen zelf kunnen ontdekken en experimenteren?"
@@ -180,11 +185,6 @@ const quotes: Quote[] = [
     question: "Hoe creëer je een klasomgeving waarin leerlingen gemotiveerd zijn om zelfstandig te werken?"
   },
   {
-    text: "Onderwijs is de meest krachtige wapen die je kunt gebruiken om de wereld te veranderen.",
-    author: "Nelson Mandela",
-    question: "Hoe gebruik je onderwijs als instrument voor sociale rechtvaardigheid en gelijkheid?"
-  },
-  {
     text: "De taak van de moderne opvoeder is niet om jungles om te hakken, maar om woestijnen te irrigeren.",
     author: "C.S. Lewis",
     question: "Hoe voed je de potentie van elke leerling, ook degenen die minder voor de hand liggende talenten hebben?"
@@ -195,69 +195,9 @@ const quotes: Quote[] = [
     question: "Hoe zorg je ervoor dat leerlingen niet alleen kennis vergaren, maar ook leren hoe ze die kunnen toepassen?"
   },
   {
-    text: "Een goede leraar kan hoop inspireren, verbeelding aanwakkeren en liefde voor leren inprenten.",
-    author: "Brad Henry",
-    question: "Welke concrete voorbeelden kun je geven van hoe je hoop en verbeelding stimuleert in je lessen?"
-  },
-  {
     text: "Het doel van onderwijs is om zelfstandige denkers te creëren, niet volgers.",
     author: "Onbekend",
     question: "Hoe moedig je leerlingen aan om vragen te stellen bij autoriteit en eigen meningen te vormen?"
-  },
-  {
-    text: "Onderwijs is de beweging van duisternis naar licht.",
-    author: "Allan Bloom",
-    question: "Hoe help je leerlingen om misconcepties en vooroordelen te overwinnen door onderwijs?"
-  },
-  {
-    text: "De invloed van een goede leraar kan nooit worden uitgewist.",
-    author: "Onbekend",
-    question: "Welke positieve herinneringen en lessen wil je achterlaten in het hart van je leerlingen?"
-  },
-  {
-    text: "Onderwijs is niet voorbereiding op het leven; onderwijs is het leven zelf.",
-    author: "John Dewey",
-    question: "Hoe integreer je real-world problemen en ervaringen in je curriculum?"
-  },
-  {
-    text: "Een leraar beïnvloedt de eeuwigheid; hij kan nooit zeggen waar zijn invloed stopt.",
-    author: "Henry Brooks Adams",
-    question: "Welke waarden en principes probeer je over te dragen die leerlingen hun hele leven bij zich zullen dragen?"
-  },
-  {
-    text: "Het is de kunst van de leraar om de vreugde van creatieve expressie en kennis te wekken.",
-    author: "Albert Einstein",
-    question: "Hoe combineer je creativiteit met academische rigor in je lessen?"
-  },
-  {
-    text: "Onderwijs is de sleutel tot succes in het leven, en leraren maken een blijvende impact in het leven van hun studenten.",
-    author: "Solomon Ortiz",
-    question: "Hoe definieer je succes voor je leerlingen en hoe help je hen hun eigen doelen te bereiken?"
-  },
-  {
-    text: "De beste leraren zijn degenen die je laten zien waar je moet kijken, maar je niet vertellen wat je moet zien.",
-    author: "Alexandra K. Trenfor",
-    question: "Welke socratische methoden gebruik je om leerlingen tot eigen inzichten te laten komen?"
-  },
-  {
-    text: "Wat we leren met plezier, vergeten we nooit.",
-    author: "Alfred Mercier",
-    question: "Hoe zorg je ervoor dat leren een positieve en plezierige ervaring blijft, ook bij uitdagende onderwerpen?"
-  },
-  {
-    text: "Onderwijs is de krachtigste kracht die je kunt gebruiken om de wereld te veranderen.",
-    author: "Nelson Mandela",
-    question: "Welke concrete acties onderneem je om je leerlingen bewust te maken van hun potentie om de wereld te verbeteren?"
-  },
-  {
-    text: "Een goede leraar is als een kaars - hij verbruikt zichzelf om de weg voor anderen te verlichten.",
-    author: "Mustafa Kemal Atatürk",
-    question: "Hoe vind je balans tussen geven aan je leerlingen en zorgen voor je eigen welzijn en groei?"
-  },
-  {
-    text: "Het mooie van leren is dat niemand het van je af kan nemen.",
-    author: "B.B. King",
-    question: "Hoe help je leerlingen om trots te zijn op hun intellectuele groei en prestaties?"
   }
 ]
 
