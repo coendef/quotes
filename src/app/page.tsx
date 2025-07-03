@@ -1,204 +1,371 @@
-import TestChatBot from '@/components/TestChatBot'
-import CopyButton from '@/components/CopyButton'
-import Image from 'next/image'
+'use client'
+
+import { useState } from 'react'
+
+interface Quote {
+  text: string
+  author: string
+  question: string
+}
+
+const quotes: Quote[] = [
+  {
+    text: "Vertel me en ik vergeet het. Leer me en ik herinner het. Betrek me en ik leer het.",
+    author: "Benjamin Franklin",
+    question: "Hoe kun je je lessen meer interactief maken zodat leerlingen actief betrokken zijn bij het leerproces?"
+  },
+  {
+    text: "Onderwijs is de krachtigste wapen die je kunt gebruiken om de wereld te veranderen.",
+    author: "Nelson Mandela",
+    question: "Op welke manier draag jij als leraar bij aan positieve verandering in de wereld van je leerlingen?"
+  },
+  {
+    text: "Het doel van onderwijs is om een lege geest te vervangen door een open geest.",
+    author: "Malcolm Forbes",
+    question: "Hoe stimuleer je kritisch denken en nieuwsgierigheid bij je leerlingen in plaats van alleen feiten over te dragen?"
+  },
+  {
+    text: "Een goede leraar kan hoop inspireren, verbeelding aanwakkeren en liefde voor leren inprenten.",
+    author: "Brad Henry",
+    question: "Welke concrete acties onderneem je om de intrinsieke motivatie van je leerlingen aan te wakkeren?"
+  },
+  {
+    text: "Kinderen moeten worden onderwezen hoe ze moeten denken, niet wat ze moeten denken.",
+    author: "Margaret Mead",
+    question: "Hoe balanceer je het overdragen van kennis met het ontwikkelen van zelfstandig denkvermogen?"
+  },
+  {
+    text: "De beste leraren zijn degenen die je laten zien waar je moet kijken, maar je niet vertellen wat je moet zien.",
+    author: "Alexandra K. Trenfor",
+    question: "Op welke manieren begeleid je leerlingen naar eigen ontdekkingen zonder direct de antwoorden te geven?"
+  },
+  {
+    text: "Onderwijs is niet voorbereiding op het leven; onderwijs is het leven zelf.",
+    author: "John Dewey",
+    question: "Hoe maak je je lessen relevant voor het dagelijkse leven van je leerlingen?"
+  },
+  {
+    text: "Elke student kan leren, alleen niet op dezelfde dag of op dezelfde manier.",
+    author: "George Evans",
+    question: "Welke differentiatiemethoden gebruik je om tegemoet te komen aan verschillende leerstijlen en -tempo's?"
+  },
+  {
+    text: "Het is de kunst van de leraar om de vreugde van creatieve expressie en kennis te wekken.",
+    author: "Albert Einstein",
+    question: "Hoe integreer je creativiteit en plezier in je vakgebied, ook bij meer theoretische onderwerpen?"
+  },
+  {
+    text: "Wat we leren met plezier, vergeten we nooit.",
+    author: "Alfred Mercier",
+    question: "Welke elementen van gamification of speelse leren kun je toevoegen aan je lessen?"
+  },
+  {
+    text: "De invloed van een goede leraar kan nooit worden uitgewist.",
+    author: "Onbekend",
+    question: "Welke blijvende impact wil je hebben op het leven van je leerlingen, buiten de lesstof om?"
+  },
+  {
+    text: "Onderwijs is de sleutel tot succes in het leven, en leraren maken een blijvende impact in het leven van hun studenten.",
+    author: "Solomon Ortiz",
+    question: "Hoe help je leerlingen om hun eigen definitie van succes te ontdekken en na te streven?"
+  },
+  {
+    text: "Een leraar beïnvloedt de eeuwigheid; hij kan nooit zeggen waar zijn invloed stopt.",
+    author: "Henry Brooks Adams",
+    question: "Besef je je de lange termijn impact van je woorden en acties op leerlingen? Hoe ga je daar bewust mee om?"
+  },
+  {
+    text: "Het mooie van leren is dat niemand het van je af kan nemen.",
+    author: "B.B. King",
+    question: "Hoe help je leerlingen om eigenaarschap te nemen over hun eigen leerproces en levenslang leren te omarmen?"
+  },
+  {
+    text: "Onderwijs is niet het vullen van een emmer, maar het aansteken van een vuur.",
+    author: "William Butler Yeats",
+    question: "Welke 'vonken' gebruik je om passie voor je vak aan te wakkeren bij leerlingen?"
+  },
+  {
+    text: "De mediocre leraar vertelt. De goede leraar legt uit. De superieure leraar demonstreert. De grote leraar inspireert.",
+    author: "William Arthur Ward",
+    question: "Op welk niveau opereer je meestal en hoe kun je meer naar het inspirerende niveau bewegen?"
+  },
+  {
+    text: "Leren is een schat die zijn eigenaar overal zal volgen.",
+    author: "Chinees spreekwoord",
+    question: "Hoe maak je leerlingen bewust van de waarde van kennis als persoonlijke rijkdom?"
+  },
+  {
+    text: "De belangrijkste dag in iemands onderwijs is de eerste dag van school, niet de diploma-uitreiking.",
+    author: "Harry Wong",
+    question: "Hoe zorg je ervoor dat elke eerste indruk en elk begin positief en motiverend is?"
+  },
+  {
+    text: "Goed onderwijs is een fundament van een goede samenleving.",
+    author: "Elizabeth Warren",
+    question: "Hoe verbind je je lessen met maatschappelijke thema's en burgerschap?"
+  },
+  {
+    text: "De hele kunst van het onderwijzen is alleen maar de kunst van het wakker maken van de natuurlijke nieuwsgierigheid van jonge geesten.",
+    author: "Anatole France",
+    question: "Welke technieken gebruik je om de natuurlijke nieuwsgierigheid van kinderen levend te houden?"
+  },
+  {
+    text: "Onderwijs is de beweging van duisternis naar licht.",
+    author: "Allan Bloom",
+    question: "Hoe help je leerlingen om van onwetendheid naar begrip te bewegen op een positieve manier?"
+  },
+  {
+    text: "Een investering in kennis levert de beste rente op.",
+    author: "Benjamin Franklin",
+    question: "Hoe maak je leerlingen enthousiast over de lange termijn voordelen van leren?"
+  },
+  {
+    text: "Leraren die liefde voor leren kunnen overbrengen, doen een geschenk dat een leven lang meegaat.",
+    author: "Onbekend",
+    question: "Wat is jouw eigen passie voor leren en hoe deel je die met je leerlingen?"
+  },
+  {
+    text: "Het doel van onderwijs is om kennis te vervangen door denken.",
+    author: "Onbekend",
+    question: "Hoe verschuif je de focus van het onthouden van feiten naar het ontwikkelen van denkvaardigheden?"
+  },
+  {
+    text: "Onderwijs is het fundament waarop we onze toekomst bouwen.",
+    author: "Christine Gregoire",
+    question: "Hoe bereid je leerlingen voor op een onzekere toekomst met vaardigheden die altijd relevant blijven?"
+  },
+  {
+    text: "De beste leraren zijn degenen die zichzelf overbodig maken.",
+    author: "Onbekend",
+    question: "Hoe werk je eraan dat leerlingen uiteindelijk zelfstandig kunnen leren en groeien?"
+  },
+  {
+    text: "Onderwijs is de sleutel die de gouden deur van vrijheid opent.",
+    author: "George Washington Carver",
+    question: "Hoe help je leerlingen om onderwijs te zien als een weg naar meer keuzemogelijkheden in het leven?"
+  },
+  {
+    text: "Een goede leraar is als een kaars - hij verbruikt zichzelf om de weg voor anderen te verlichten.",
+    author: "Mustafa Kemal Atatürk",
+    question: "Hoe zorg je voor jezelf als leraar terwijl je je energie geeft aan je leerlingen?"
+  },
+  {
+    text: "Het is niet genoeg om te onderwijzen; we moeten ook inspireren.",
+    author: "Onbekend",
+    question: "Wat inspireert jou als leraar en hoe breng je die inspiratie over op je leerlingen?"
+  },
+  {
+    text: "Onderwijs is de krachtigste kracht die je kunt gebruiken om de wereld te veranderen.",
+    author: "Nelson Mandela",
+    question: "Welke wereldproblemen bespreek je met je leerlingen en hoe motiveer je hen om verschil te maken?"
+  },
+  {
+    text: "De kunst van het onderwijzen is de kunst van het begeleiden van ontdekkingen.",
+    author: "Mark Van Doren",
+    question: "Hoe creëer je leeromgevingen waarin leerlingen zelf kunnen ontdekken en experimenteren?"
+  },
+  {
+    text: "Onderwijs is niet wat je krijgt door het lezen van de kleine lettertjes. Onderwijs is wat je overhoudt nadat je alles bent vergeten wat je hebt geleerd.",
+    author: "Albert Einstein",
+    question: "Welke kernvaardigheden en -waarden wil je dat leerlingen behouden, lang nadat ze je les hebben verlaten?"
+  },
+  {
+    text: "Een leraar neemt een hand, opent een geest en raakt een hart.",
+    author: "Onbekend",
+    question: "Hoe balanceer je cognitieve, emotionele en sociale ontwikkeling in je onderwijs?"
+  },
+  {
+    text: "Het mooiste dat een leraar kan zeggen is: 'De kinderen werken zo hard dat ze mij niet nodig hebben.'",
+    author: "Maria Montessori",
+    question: "Hoe creëer je een klasomgeving waarin leerlingen gemotiveerd zijn om zelfstandig te werken?"
+  },
+  {
+    text: "Onderwijs is de meest krachtige wapen die je kunt gebruiken om de wereld te veranderen.",
+    author: "Nelson Mandela",
+    question: "Hoe gebruik je onderwijs als instrument voor sociale rechtvaardigheid en gelijkheid?"
+  },
+  {
+    text: "De taak van de moderne opvoeder is niet om jungles om te hakken, maar om woestijnen te irrigeren.",
+    author: "C.S. Lewis",
+    question: "Hoe voed je de potentie van elke leerling, ook degenen die minder voor de hand liggende talenten hebben?"
+  },
+  {
+    text: "Onderwijs is het leren van feiten, maar training is het leren van wat te doen met die feiten.",
+    author: "Onbekend",
+    question: "Hoe zorg je ervoor dat leerlingen niet alleen kennis vergaren, maar ook leren hoe ze die kunnen toepassen?"
+  },
+  {
+    text: "Een goede leraar kan hoop inspireren, verbeelding aanwakkeren en liefde voor leren inprenten.",
+    author: "Brad Henry",
+    question: "Welke concrete voorbeelden kun je geven van hoe je hoop en verbeelding stimuleert in je lessen?"
+  },
+  {
+    text: "Het doel van onderwijs is om zelfstandige denkers te creëren, niet volgers.",
+    author: "Onbekend",
+    question: "Hoe moedig je leerlingen aan om vragen te stellen bij autoriteit en eigen meningen te vormen?"
+  },
+  {
+    text: "Onderwijs is de beweging van duisternis naar licht.",
+    author: "Allan Bloom",
+    question: "Hoe help je leerlingen om misconcepties en vooroordelen te overwinnen door onderwijs?"
+  },
+  {
+    text: "De invloed van een goede leraar kan nooit worden uitgewist.",
+    author: "Onbekend",
+    question: "Welke positieve herinneringen en lessen wil je achterlaten in het hart van je leerlingen?"
+  },
+  {
+    text: "Onderwijs is niet voorbereiding op het leven; onderwijs is het leven zelf.",
+    author: "John Dewey",
+    question: "Hoe integreer je real-world problemen en ervaringen in je curriculum?"
+  },
+  {
+    text: "Een leraar beïnvloedt de eeuwigheid; hij kan nooit zeggen waar zijn invloed stopt.",
+    author: "Henry Brooks Adams",
+    question: "Welke waarden en principes probeer je over te dragen die leerlingen hun hele leven bij zich zullen dragen?"
+  },
+  {
+    text: "Het is de kunst van de leraar om de vreugde van creatieve expressie en kennis te wekken.",
+    author: "Albert Einstein",
+    question: "Hoe combineer je creativiteit met academische rigor in je lessen?"
+  },
+  {
+    text: "Onderwijs is de sleutel tot succes in het leven, en leraren maken een blijvende impact in het leven van hun studenten.",
+    author: "Solomon Ortiz",
+    question: "Hoe definieer je succes voor je leerlingen en hoe help je hen hun eigen doelen te bereiken?"
+  },
+  {
+    text: "De beste leraren zijn degenen die je laten zien waar je moet kijken, maar je niet vertellen wat je moet zien.",
+    author: "Alexandra K. Trenfor",
+    question: "Welke socratische methoden gebruik je om leerlingen tot eigen inzichten te laten komen?"
+  },
+  {
+    text: "Wat we leren met plezier, vergeten we nooit.",
+    author: "Alfred Mercier",
+    question: "Hoe zorg je ervoor dat leren een positieve en plezierige ervaring blijft, ook bij uitdagende onderwerpen?"
+  },
+  {
+    text: "Onderwijs is de krachtigste kracht die je kunt gebruiken om de wereld te veranderen.",
+    author: "Nelson Mandela",
+    question: "Welke concrete acties onderneem je om je leerlingen bewust te maken van hun potentie om de wereld te verbeteren?"
+  },
+  {
+    text: "Een goede leraar is als een kaars - hij verbruikt zichzelf om de weg voor anderen te verlichten.",
+    author: "Mustafa Kemal Atatürk",
+    question: "Hoe vind je balans tussen geven aan je leerlingen en zorgen voor je eigen welzijn en groei?"
+  },
+  {
+    text: "Het mooie van leren is dat niemand het van je af kan nemen.",
+    author: "B.B. King",
+    question: "Hoe help je leerlingen om trots te zijn op hun intellectuele groei en prestaties?"
+  }
+]
 
 export default function Home() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-16">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-600 rounded-full mb-6">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          
-          <h1 className="text-5xl font-bold text-gray-800 mb-4">
-            Vibe Coding Template
-          </h1>
-          
-          <p className="text-xl text-purple-700 font-medium mb-6">
-            Dit is een template om met Bolt te werken waarbij we gebruik maken van Gemini. Dit template is gemaakt door Tom Naberink
-          </p>
+  const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
 
-          {/* AI voor Docenten Logo */}
-          <div className="flex justify-center mb-8">
-            <div className="bg-white rounded-lg shadow-lg p-4">
-              <Image 
-                src="/images/ai-voor-docenten-logo.png" 
-                alt="AI voor Docenten Logo" 
-                width={192} 
-                height={96}
-                className="rounded-lg"
-              />
+  const getNewQuote = () => {
+    setIsAnimating(true)
+    setTimeout(() => {
+      let newIndex
+      do {
+        newIndex = Math.floor(Math.random() * quotes.length)
+      } while (newIndex === currentQuoteIndex && quotes.length > 1)
+      
+      setCurrentQuoteIndex(newIndex)
+      setIsAnimating(false)
+    }, 300)
+  }
+
+  const currentQuote = quotes[currentQuoteIndex]
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 flex items-center justify-center p-4">
+      <div className="max-w-4xl w-full">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+            💡 Pedagogische Wijsheden
+          </h1>
+          <p className="text-xl text-purple-200 font-light">
+            Inspiratie voor elke leraar
+          </p>
+        </div>
+
+        {/* Quote Card */}
+        <div className={`bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 mb-8 transition-all duration-300 ${
+          isAnimating ? 'opacity-50 scale-95' : 'opacity-100 scale-100'
+        }`}>
+          {/* Quote Text */}
+          <div className="text-center mb-8">
+            <div className="text-6xl text-purple-600 mb-4">❝</div>
+            <blockquote className="text-2xl md:text-3xl font-light text-gray-800 leading-relaxed italic mb-6">
+              {currentQuote.text}
+            </blockquote>
+            <div className="text-6xl text-purple-600 rotate-180 inline-block">❝</div>
+          </div>
+
+          {/* Author */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full">
+              <span className="text-lg font-semibold">— {currentQuote.author}</span>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="flex items-center justify-center mb-8">
+            <div className="h-px bg-gradient-to-r from-transparent via-purple-300 to-transparent w-full max-w-md"></div>
+            <div className="mx-4 text-purple-400 text-2xl">✨</div>
+            <div className="h-px bg-gradient-to-r from-transparent via-purple-300 to-transparent w-full max-w-md"></div>
+          </div>
+
+          {/* Reflection Question */}
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 md:p-8">
+            <div className="flex items-start space-x-4">
+              <div className="text-3xl">🤔</div>
+              <div>
+                <h3 className="text-xl font-semibold text-purple-800 mb-3">
+                  Reflectievraag voor jou als leraar:
+                </h3>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  {currentQuote.question}
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Main Content */}
-        <div className="max-w-4xl mx-auto">
-          
-          {/* Setup Instructions */}
-          <div className="bg-white rounded-2xl shadow-xl p-8">
-            <h2 className="text-2xl font-bold text-purple-800 mb-6 flex items-center">
-              <span className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-                🔧
+        {/* Action Button */}
+        <div className="text-center">
+          <button
+            onClick={getNewQuote}
+            disabled={isAnimating}
+            className="group bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span className="flex items-center space-x-3">
+              <span>{isAnimating ? 'Nieuwe wijsheid komt eraan...' : 'Nieuwe Inspiratie'}</span>
+              <span className="text-2xl group-hover:rotate-180 transition-transform duration-300">
+                {isAnimating ? '⏳' : '🔄'}
               </span>
-              Setup Instructies
-            </h2>
-            
-            <div className="space-y-6">
-              
-              {/* Step 1 - Fork GitHub Template */}
-              <div className="border-l-4 border-purple-500 pl-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 1: Fork dit template in GitHub
-                </h3>
-                <p className="text-gray-600 mb-3">
-                  Ga naar <a href="https://github.com" target="_blank" className="text-purple-600 hover:text-purple-800 underline">github.com</a> en login in. Ga dan naar deze pagina: <a href="https://github.com/TomNaberink/apitemplateTom" target="_blank" className="text-purple-600 hover:text-purple-800 underline">https://github.com/TomNaberink/apitemplateTom</a>
-                </p>
-                <p className="text-gray-600 mb-3">
-                  Klik rechtsbovenin op '<strong>Use this template</strong>', geef het een gepaste naam voor je project en klik op '<strong>create fork</strong>'.
-                </p>
-                <div className="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-gray-400">GitHub Repository URL</span>
-                    <CopyButton 
-                      text="https://github.com/TomNaberink/apitemplateTom"
-                      className="text-purple-400 hover:text-purple-300 text-xs transition-colors"
-                      title="Kopieer GitHub URL"
-                    />
-                  </div>
-                  <code>https://github.com/TomNaberink/apitemplateTom</code>
-                </div>
-              </div>
+            </span>
+          </button>
+        </div>
 
-              {/* Step 2 - Import from GitHub in Bolt */}
-              <div className="border-l-4 border-purple-500 pl-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 2: Import in Bolt.new
-                </h3>
-                <p className="text-gray-600 mb-3">
-                  Open <a href="https://bolt.new" target="_blank" className="text-purple-600 hover:text-purple-800 underline">Bolt.new</a> en login. Selecteer '<strong>import from github</strong>' en login op GitHub. Kies dan de '<strong>repository</strong>' die je net hebt geforkt.
-                </p>
-              </div>
-
-              {/* Step 3 - Create .env.local */}
-              <div className="border-l-4 border-purple-500 pl-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 3: Maak een .env.local bestand
-                </h3>
-                <p className="text-gray-600 mb-3">
-                  Als het template is geladen ga je naar het <strong>tabblad "Code"</strong>. Bij de files doe je <strong>rechtermuisknop</strong> en klik je op <strong>"New File"</strong>. Die noem je <code className="bg-gray-100 px-2 py-1 rounded text-sm">.env.local</code>. Daar binnen zet je het volgende:
-                </p>
-                <div className="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
-                  <div className="flex items-center justify-end mb-2">
-                    <CopyButton 
-                      text="GEMINI_API_KEY=your_actual_api_key_here"
-                      className="text-purple-400 hover:text-purple-300 text-xs transition-colors"
-                      title="Kopieer .env.local inhoud"
-                    />
-                  </div>
-                  <code>GEMINI_API_KEY=your_actual_api_key_here</code>
-                </div>
-                <p className="text-orange-600 text-sm mt-2 font-medium">
-                  ⚠️ Vervang "your_actual_api_key_here" met je echte API key! (zie stap 3)
-                </p>
-              </div>
-
-              {/* Step 4 - Get API Key */}
-              <div className="border-l-4 border-purple-500 pl-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 4: Verkrijg een Gemini API Key
-                </h3>
-                <p className="text-gray-600 mb-3">
-                  Ga naar Google AI Studio om je gratis API key aan te maken:
-                </p>
-                <a 
-                  href="https://makersuite.google.com/app/apikey" 
-                  target="_blank"
-                  className="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-                >
-                  <span>Verkrijg API Key</span>
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
-                
-                <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-lg">
-                  <p className="text-orange-800 text-sm">
-                    ⚠️ <strong>Let op</strong>, je kunt gratis en risicovrij oefenen met de Gemini API. Daarnaast kun je 300,- dollar gratis budget krijgen. Als dat op, dan moet je het koppelen aan je creditcard. Zorg ervoor dat je weet wat je doet op dat moment!
-                  </p>
-                </div>
-              </div>
-
-              {/* Step 5 - Enhanced Test Step */}
-              <div className="border-l-4 border-purple-500 pl-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 5: Test je API Key & Alle Features
-                </h3>
-                <TestChatBot />
-              </div>
-
-              {/* Step 6 - Build Step */}
-              <div className="border-l-4 border-purple-500 pl-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 6: Bouwen maar!
-                </h3>
-                <p className="text-gray-600">
-                  Er staat veel informatie in de <code className="bg-gray-100 px-2 py-1 rounded text-sm">README.md</code>, maar je mag ook lekker gaan viben! Wat ga jij maken om het onderwijs te verbeteren?
-                </p>
-              </div>
-
-              {/* Step 7 - Deploy with Vercel */}
-              <div className="border-l-4 border-purple-500 pl-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 7: Deploy met Vercel
-                </h3>
-                <p className="text-gray-600 mb-3">
-                  Ga naar <a href="https://vercel.com" target="_blank" className="text-purple-600 hover:text-purple-800 underline">Vercel.com</a>, login en koppel je Github. Klik op <strong>'Add New'</strong> en importeer de Github die je net hebt gemaakt binnen Bolt. <strong className="text-red-600">KLIK NOG NIET OP DEPLOY</strong>. Eerst moet je de <strong>'Environment Variable'</strong> instellen:
-                </p>
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-3">
-                  <p className="text-yellow-800 text-sm mb-2">
-                    ⚙️ <strong>Environment Variables instellen:</strong>
-                  </p>
-                  <ul className="text-yellow-700 text-sm space-y-1">
-                    <li>• Bij <strong>'Key'</strong> vul je <code className="bg-yellow-100 px-1 rounded">GEMINI_API_KEY</code> in</li>
-                    <li>• Bij <strong>'Value'</strong> vul je je echte API key in</li>
-                    <li>• Klik dan pas op <strong>'Deploy'</strong></li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Step 8 - Test and Share */}
-              <div className="border-l-4 border-purple-500 pl-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 8: Testen en delen
-                </h3>
-                <p className="text-gray-600 mb-3">
-                  🎉 <strong>Gefeliciteerd!</strong> Je AI-tool is nu live op het internet. Test alles zorgvuldig voordat je het deelt!
-                </p>
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                  <p className="text-green-800 text-sm">
-                    🌟 <strong>Tijd om te delen!</strong> Laat je collega's, studenten of vrienden zien wat je hebt gebouwd. Wie weet inspireer je anderen om ook te gaan experimenteren met AI in het onderwijs! 🚀
-                  </p>
-                </div>
-              </div>
-            </div>
+        {/* Quote Counter */}
+        <div className="text-center mt-6">
+          <div className="inline-flex items-center bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full">
+            <span className="text-sm">
+              Quote {currentQuoteIndex + 1} van {quotes.length}
+            </span>
           </div>
+        </div>
 
-          {/* Footer */}
-          <div className="text-center mt-12">
-            <div className="inline-flex items-center space-x-4 text-purple-600">
-              <span>💜</span>
-              <span>Veel succes met bouwen!</span>
-              <span>💜</span>
-            </div>
-            <p className="text-gray-500 text-sm mt-2">
-              Vibe Coding Template door Tom Naberink • Powered by Bolt, Next.js & Gemini AI
-            </p>
-          </div>
+        {/* Footer */}
+        <div className="text-center mt-12">
+          <p className="text-purple-200 text-sm">
+            💜 Gemaakt met liefde voor alle toegewijde leraren
+          </p>
         </div>
       </div>
     </div>
